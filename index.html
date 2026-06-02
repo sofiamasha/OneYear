@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1 Ano Juntos | Nossa História</title>
+    <meta name="description" content="Celebrando 1 ano de amor, memórias e cumplicidade. Uma jornada épica contada através de uma interface do futuro.">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cyber-dark': '#020617',
+                        'cyber-deeper': '#0a0f1e',
+                        'cyber-panel': '#0d1525',
+                        'neon-blue': '#00b4ff',
+                        'neon-blue-dim': '#005f99',
+                        'neon-purple': '#7c3aed',
+                        'neon-cyan': '#06d6a0',
+                        'neon-pink': '#ff006e',
+                        'glass-white': 'rgba(255,255,255,0.05)',
+                    },
+                    fontFamily: {
+                        'tech': ['Orbitron', 'monospace'],
+                        'body': ['Inter', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'eq-bar': 'eq-bar 0.8s ease-in-out infinite',
+                        'scan-line': 'scan-line 4s linear infinite',
+                        'border-glow': 'border-glow 3s ease-in-out infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <style>
+        /* ═══════════════════════════════════════════
+           CUSTOM CSS - Efeitos Avançados
+           ═══════════════════════════════════════════ */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #020617;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+        /* Scrollbar Custom */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #00b4ff33; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00b4ff66; }
+        /* Particle Canvas */
+        #particle-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        /* Grid Background */
+        .cyber-grid {
+            background-image:
+                linear-gradient(rgba(0,180,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,180,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+        /* Scan Line Effect */
+        @keyframes scan-line {
+            0% { transform: translateY(-100vh); }
+            100% { transform: translateY(100vh); }
+        }
+        .scan-line::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(0,180,255,0.15), transparent);
+            animation: scan-line 4s linear infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+        /* Glow Pulse */
+        @keyframes glow-pulse {
+            0%, 100% { text-shadow: 0 0 10px rgba(0,180,255,0.5), 0 0 40px rgba(0,180,255,0.2); }
+            50% { text-shadow: 0 0 20px rgba(0,180,255,0.8), 0 0 60px rgba(0,180,255,0.4), 0 0 80px rgba(0,180,255,0.1); }
+        }
+        /* Float */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        /* EQ Bars */
+        @keyframes eq-bar {
+            0%, 100% { height: 8px; }
+            50% { height: var(--eq-height, 40px); }
+        }
+        /* Border Glow */
+        @keyframes border-glow {
+            0%, 100% { border-color: rgba(0,180,255,0.15); box-shadow: 0 0 8px rgba(0,180,255,0.05); }
+            50% { border-color: rgba(0,180,255,0.4); box-shadow: 0 0 20px rgba(0,180,255,0.1); }
+        }
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(13, 21, 37, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0,180,255,0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            border-color: rgba(0,180,255,0.5);
+            box-shadow: 0 0 30px rgba(0,180,255,0.1), inset 0 0 30px rgba(0,180,255,0.02);
+            transform: translateY(-4px);
+        }
+        /* Typing Cursor */
+        .typing-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1.1em;
+            background: #00b4ff;
+            margin-left: 2px;
+            animation: blink 0.8s step-end infinite;
+            vertical-align: text-bottom;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        /* Countdown Segments */
+        .countdown-segment {
+            background: linear-gradient(135deg, rgba(0,180,255,0.08), rgba(13,21,37,0.9));
+            border: 1px solid rgba(0,180,255,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .countdown-segment::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, #00b4ff, transparent);
+            animation: shimmer 3s infinite;
+        }
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        /* Nav */
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00b4ff;
+            transition: width 0.3s;
+            box-shadow: 0 0 8px rgba(0,180,255,0.5);
+        }
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+        /* Photo Grid */
+        .photo-item {
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .photo-item:hover {
+            z-index: 10;
+            transform: scale(1.03);
+        }
+        .photo-item:hover .photo-overlay {
+            opacity: 1;
+        }
+        .photo-item img {
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .photo-item:hover img {
+            transform: scale(1.1);
+        }
+        /* Lightbox */
+        .lightbox {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s;
+        }
+        .lightbox.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .lightbox.active .lightbox-content {
+            transform: scale(1);
+        }
+        .lightbox-content {
+            transform: scale(0.9);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        /* Section Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* HUD Corner Decorations */
+        .hud-corner {
+            position: relative;
+        }
+        .hud-corner::before,
+        .hud-corner::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-color: rgba(0,180,255,0.3);
+            border-style: solid;
+        }
+        .hud-corner::before {
+            top: -1px; left: -1px;
+            border-width: 2px 0 0 2px;
+        }
+        .hud-corner::after {
+            bottom: -1px; right: -1px;
+            border-width: 0 2px 2px 0;
+        }
+        /* Neon text */
+        .neon-text {
+            color: #00b4ff;
+            text-shadow: 0 0 7px rgba(0,180,255,0.6), 0 0 20px rgba(0,180,255,0.3), 0 0 42px rgba(0,180,255,0.1);
+        }
+        /* EQ Container */
+        .eq-bar-item {
+            width: 4px;
+            border-radius: 2px;
+            background: linear-gradient(to top, #00b4ff, #7c3aed);
+        }
+        /* Car Dashboard */
+        .car-gauge {
+            background: conic-gradient(from 180deg, #00b4ff 0deg, #00b4ff calc(var(--gauge) * 1deg), rgba(0,180,255,0.1) calc(var(--gauge) * 1deg));
+            border-radius: 50%;
+        }
+        /* Manifesto text */
+        .manifesto-text {
+            font-size: 1.15rem;
+            line-height: 2;
+            letter-spacing: 0.01em;
+        }
+        .manifesto-text p {
+            margin-bottom: 1.8em;
+            text-indent: 1.5em;
+        }
+        .manifesto-text p:first-of-type::first-letter {
+            font-size: 3.5em;
+            float: left;
+            line-height: 0.8;
+            margin-right: 0.1em;
+            margin-top: 0.05em;
+            color: #00b4ff;
+            font-family: 'Orbitron', monospace;
+            text-shadow: 0 0 20px rgba(0,180,255,0.5);
+        }
+        /* Mobile nav */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        /* Loading screen */
+        .loading-screen {
+            transition: opacity 0.8s, visibility 0.8s;
+        }
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        /* Progress bar in loading */
+        .loading-progress {
+            width: 0%;
+            transition: width 0.3s;
+        }
+        /* Spotify-like progress bar */
+        .progress-bar-fill {
+            background: linear-gradient(90deg, #00b4ff, #7c3aed);
+            height: 100%;
+            border-radius: 2px;
+            animation: progress-fill 180s linear infinite;
+        }
+        @keyframes progress-fill {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+    </style>
+</head>
+<body class="cyber-grid scan-line">
+    <!-- ═══════════════════════════════════════════
+         LOADING SCREEN
+         ═══════════════════════════════════════════ -->
+    <div id="loading-screen" class="loading-screen fixed inset-0 z-[9999] bg-cyber-dark flex flex-col items-center justify-center">
+        <div class="mb-8">
+            <span class="font-tech text-neon-blue text-2xl md:text-4xl animate-glow-pulse tracking-widest">INICIALIZANDO</span>
+        </div>
+        <div class="w-64 h-1 bg-gray-800 rounded-full overflow-hidden">
+            <div id="loading-bar" class="loading-progress h-full bg-gradient-to-r from-neon-blue to-neon-purple rounded-full"></div>
+        </div>
+        <p class="font-mono text-xs text-gray-500 mt-4" id="loading-text">Carregando memórias...</p>
+    </div>
+    <!-- ═══════════════════════════════════════════
+         PARTICLE CANVAS
+         ═══════════════════════════════════════════ -->
+    <canvas id="particle-canvas"></canvas>
+    <!-- ═══════════════════════════════════════════
+         NAVIGATION
+         ═══════════════════════════════════════════ -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 md:h-20">
+                <!-- Logo -->
+                <a href="#hero" class="flex items-center gap-2 group">
+                    <div class="w-8 h-8 rounded-lg border border-neon-blue/30 flex items-center justify-center group-hover:border-neon-blue/80 transition-colors">
+                        <i data-lucide="heart" class="w-4 h-4 text-neon-blue"></i>
+                    </div>
+                    <span class="font-tech text-sm tracking-wider text-gray-300 group-hover:text-neon-blue transition-colors">SN<span class="text-neon-blue">_</span>365</span>
+                </a>
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#hero" class="nav-link font-mono text-xs tracking-widest text-gray-400 hover:text-neon-blue uppercase">Início</a>
+                    <a href="#universe" class="nav-link font-mono text-xs tracking-widest text-gray-400 hover:text-neon-blue uppercase">Universo</a>
+                    <a href="#soundtrack" class="nav-link font-mono text-xs tracking-widest text-gray-400 hover:text-neon-blue uppercase">Trilha</a>
+                    <a href="#gallery" class="nav-link font-mono text-xs tracking-widest text-gray-400 hover:text-neon-blue uppercase">Memórias</a>
+                    <a href="#manifesto" class="nav-link font-mono text-xs tracking-widest text-gray-400 hover:text-neon-blue uppercase">Manifesto</a>
+                </div>
+                <!-- Mobile Toggle -->
+                <button id="mobile-toggle" class="md:hidden text-gray-400 hover:text-neon-blue transition-colors">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 bottom-0 w-72 z-[60] bg-cyber-dark/95 backdrop-blur-xl border-l border-neon-blue/10">
+        <div class="p-6">
+            <button id="mobile-close" class="mb-10 text-gray-400 hover:text-neon-blue transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <div class="flex flex-col gap-6">
+                <a href="#hero" class="mobile-link font-mono text-sm tracking-widest text-gray-400 hover:text-neon-blue uppercase transition-colors">Início</a>
+                <a href="#universe" class="mobile-link font-mono text-sm tracking-widest text-gray-400 hover:text-neon-blue uppercase transition-colors">Universo</a>
+                <a href="#soundtrack" class="mobile-link font-mono text-sm tracking-widest text-gray-400 hover:text-neon-blue uppercase transition-colors">Trilha</a>
+                <a href="#gallery" class="mobile-link font-mono text-sm tracking-widest text-gray-400 hover:text-neon-blue uppercase transition-colors">Memórias</a>
+                <a href="#manifesto" class="mobile-link font-mono text-sm tracking-widest text-gray-400 hover:text-neon-blue uppercase transition-colors">Manifesto</a>
+            </div>
+        </div>
+    </div>
+    <div id="mobile-overlay" class="fixed inset-0 z-[55] bg-black/60 hidden"></div>
+    <!-- ═══════════════════════════════════════════════════════
+         SEÇÃO 1: HERO SECTION — ABERTURA TECH-LOVE
+         ═══════════════════════════════════════════════════════ -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center px-4 pt-20">
+        <div class="relative z-10 text-center max-w-4xl mx-auto">
+            <!-- HUD Status -->
+            <div class="flex items-center justify-center gap-2 mb-6 reveal">
+                <span class="w-2 h-2 rounded-full bg-neon-blue animate-pulse"></span>
+                <span class="font-mono text-xs tracking-[0.3em] text-neon-blue/70 uppercase">Sistema Ativo — Conexão Estabelecida</span>
+            </div>
+            <!-- Typing Title -->
+            <h1 class="font-tech text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+                <span id="typing-text" class="neon-text"></span><span class="typing-cursor"></span>
+            </h1>
+            <!-- Subtitle -->
+            <p class="font-body text-base md:text-lg text-gray-400 max-w-xl mx-auto mb-12 reveal" style="transition-delay:0.3s">
+                <span class="text-neon-blue/80 font-mono text-xs">&gt;&gt;</span>
+                Um ano de cumplicidade, aventuras e amor. Cada segundo registrado, cada memória preservada.
+            </p>
+            <!-- Countdown Timer -->
+            <div class="reveal" style="transition-delay:0.5s">
+                <p class="font-mono text-xs text-gray-500 tracking-widest uppercase mb-4">
+                    <i data-lucide="clock" class="w-3 h-3 inline mr-1"></i> Tempo juntos desde o início
+                </p>
+                <div class="flex flex-wrap justify-center gap-3 md:gap-5">
+                    <!-- Days -->
+                    <div class="countdown-segment rounded-xl p-4 md:p-6 min-w-[80px] md:min-w-[110px]">
+                        <span id="countdown-days" class="font-tech text-3xl md:text-5xl font-bold neon-text block">000</span>
+                        <span class="font-mono text-[10px] md:text-xs text-gray-500 tracking-widest uppercase mt-1 block">Dias</span>
+                    </div>
+                    <!-- Hours -->
+                    <div class="countdown-segment rounded-xl p-4 md:p-6 min-w-[80px] md:min-w-[110px]">
+                        <span id="countdown-hours" class="font-tech text-3xl md:text-5xl font-bold neon-text block">00</span>
+                        <span class="font-mono text-[10px] md:text-xs text-gray-500 tracking-widest uppercase mt-1 block">Horas</span>
+                    </div>
+                    <!-- Minutes -->
+                    <div class="countdown-segment rounded-xl p-4 md:p-6 min-w-[80px] md:min-w-[110px]">
+                        <span id="countdown-minutes" class="font-tech text-3xl md:text-5xl font-bold neon-text block">00</span>
+                        <span class="font-mono text-[10px] md:text-xs text-gray-500 tracking-widest uppercase mt-1 block">Minutos</span>
+                    </div>
+                    <!-- Seconds -->
+                    <div class="countdown-segment rounded-xl p-4 md:p-6 min-w-[80px] md:min-w-[110px]">
+                        <span id="countdown-seconds" class="font-tech text-3xl md:text-5xl font-bold neon-text block">00</span>
+                        <span class="font-mono text-[10px] md:text-xs text-gray-500 tracking-widest uppercase mt-1 block">Segundos</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Scroll Indicator -->
+            <div class="mt-16 animate-bounce reveal" style="transition-delay:0.8s">
+                <a href="#universe" class="text-gray-600 hover:text-neon-blue transition-colors">
+                    <i data-lucide="chevrons-down" class="w-6 h-6 mx-auto"></i>
+                </a>
+            </div>
+        </div>
+        <!-- HUD Decorative Elements -->
+        <div class="absolute top-24 left-4 md:left-12 font-mono text-[10px] text-neon-blue/20 hidden md:block">
+            <p>LAT: -19.9167</p>
+            <p>LNG: -43.9345</p>
+            <p>STATUS: ♥ ONLINE</p>
+        </div>
+        <div class="absolute bottom-8 right-4 md:right-12 font-mono text-[10px] text-neon-blue/20 hidden md:block text-right">
+            <p>BUILD: 365.1.0</p>
+            <p>PROTOCOL: LOVE</p>
+            <p>ENCRYPTION: ∞</p>
+        </div>
+    </section>
+    <!-- ═══════════════════════════════════════════════════════
+         SEÇÃO 2: O UNIVERSO DELE (EASTER EGGS & HOBBIES)
+         ═══════════════════════════════════════════════════════ -->
+    <section id="universe" class="relative py-20 md:py-32 px-4">
+        <div class="max-w-7xl mx-auto">
+            <!-- Section Header -->
+            <div class="text-center mb-16 reveal">
+                <div class="flex items-center justify-center gap-2 mb-3">
+                    <div class="h-px w-8 bg-neon-blue/30"></div>
+                    <span class="font-mono text-[10px] tracking-[0.4em] text-neon-blue/60 uppercase">Análise de perfil</span>
+                    <div class="h-px w-8 bg-neon-blue/30"></div>
+                </div>
+                <h2 class="font-tech text-2xl md:text-4xl font-bold neon-text">O Universo Dele</h2>
+                <p class="font-mono text-xs text-gray-500 mt-3">&gt; Mapeando os principais interesses do usuário...</p>
+            </div>
+            <!-- Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1: Futebol e CR7 -->
+                <div class="glass-card rounded-2xl p-6 hud-corner reveal">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-neon-blue/20 to-neon-purple/20 flex items-center justify-center border border-neon-blue/20 flex-shrink-0">
+                            <span class="text-2xl">⚽</span>
+                        </div>
+                        <div>
+                            <h3 class="font-tech text-sm font-semibold text-white tracking-wider">CR7 — O Robozão</h3>
+                            <p class="font-mono text-[10px] text-neon-blue/60 tracking-wider mt-1">INTEREST_LEVEL: MÁXIMO</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">A paixão pelo futebol corre nas veias. Cristiano Ronaldo não é só um ídolo, é uma referência de disciplina, determinação e grandeza. O Robozão é inigualável.</p>
+                    <div class="flex items-center gap-2 pt-3 border-t border-white/5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-neon-cyan"></span>
+                        <span class="font-mono text-[10px] text-neon-cyan/70">Nível de fanatismo: SIUUUUU!</span>
+                    </div>
+                    <!-- Placeholder: Imagem de futebol/CR7 -->
+                    <img src="https://images.unsplash.com/photo-1553778263-73a83bab9b0c?w=400&h=200&fit=crop&crop=center" alt="Futebol" class="w-full h-32 object-cover rounded-lg mt-4 opacity-70">
+                </div>
+                <!-- Card 2: Álbum da Copa -->
+                <div class="glass-card rounded-2xl p-6 hud-corner reveal" style="transition-delay:0.1s">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-neon-blue/20 to-neon-purple/20 flex items-center justify-center border border-neon-blue/20 flex-shrink-0">
+                            <span class="text-2xl">🏆</span>
+                        </div>
+                        <div>
+                            <h3 class="font-tech text-sm font-semibold text-white tracking-wider">Álbum da Copa</h3>
+                            <p class="font-mono text-[10px] text-neon-blue/60 tracking-wider mt-1">COLLECTION_STATUS: PREMIUM</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">A tradição sagrada de colecionar figurinhas da Copa do Mundo. Cada pacotinho é uma emoção, cada figurinha rara é uma conquista. A Copa não é só futebol — é ritual.</p>
+                    <div class="flex items-center gap-2 pt-3 border-t border-white/5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-neon-purple"></span>
+                        <span class="font-mono text-[10px] text-neon-purple/70">Completude: Sempre buscando 100%</span>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=400&h=200&fit=crop&crop=center" alt="Copa do Mundo" class="w-full h-32 object-cover rounded-lg mt-4 opacity-70">
+                </div>
+                <!-- Card 3: Atlético Mineiro -->
+                <div class="glass-card rounded-2xl p-6 hud-corner reveal" style="transition-delay:0.2s">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center border border-white/10 flex-shrink-0">
+                            <span class="text-2xl">🐓</span>
+                        </div>
+                        <div>
+                            <h3 class="font-tech text-sm font-semibold text-white tracking-wider">Galo Doido</h3>
+                            <p class="font-mono text-[10px] text-gray-400 tracking-wider mt-1">TEAM: ATLÉTICO MINEIRO</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">O Atlético Mineiro é mais que um time — é uma identidade. A torcida mais apaixonada, os jogos mais emocionantes. Galo Doido sangue, suor e raça em campo. GALOOOOO!</p>
+                    <div class="flex items-center gap-2 pt-3 border-t border-white/5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+                        <span class="font-mono text-[10px] text-gray-400">Massa: INFINITA ⚫⚪</span>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=200&fit=crop&crop=center" alt="Estádio" class="w-full h-32 object-cover rounded-lg mt-4 opacity-70">
+                </div>
+                <!-- Card 4: O Amor da Vida (Eu!) -->
+                <div class="glass-card rounded-2xl p-6 hud-corner reveal border-neon-pink/20 hover:border-neon-pink/60" style="transition-delay:0.3s">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-neon-pink/20 to-neon-purple/20 flex items-center justify-center border border-neon-pink/20 flex-shrink-0 animate-pulse">
+                            <span class="text-2xl">💖</span>
+                        </div>
+                        <div>
+                            <h3 class="font-tech text-sm font-semibold text-neon-pink tracking-wider">O Amor da Vida Dele</h3>
+                            <p class="font-mono text-[10px] text-neon-pink/60 tracking-wider mt-1">PRIORIDADE: #1 ABSOLUTA</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-4">Acima de qualquer coisa, de qualquer interesse, de qualquer paixão — existe ela. A pessoa que transformou a rotina em aventura e o ordinário em extraordinário. O amor da vida dele. <span class="text-neon-pink">EU! ♥</span></p>
+                    <div class="flex items-center gap-2 pt-3 border-t border-neon-pink/10">
+                        <span class="w-1.5 h-1.5 rounded-full bg-neon-pink animate-pulse"></span>
+                        <span class="font-mono text-[10px] text-neon-pink/70">Nível de amor: ████████████ OVERFLOW</span>
+                    </div>
+                    <!-- SUBSTITUA: Coloque aqui uma foto sua (do casal) -->
+                    <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400&h=200&fit=crop&crop=center" alt="Amor" class="w-full h-32 object-cover rounded-lg mt-4 opacity-80 border border-neon-pink/20">
+                </div>
+                <!-- Card 5: Gastronomia -->
+                <div class="glass-card rounded-2xl p-6 hud-corner reveal" style="transition-delay:0.4s">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500/20 to-red-500/20 flex items-center justify-center border border-orange-500/20 flex-shrink-0">
+                            <span class="text-2xl">🍔</span>
+                        </div>
+                        <div>
+                            <h3 class="font-tech text-sm font-semibold text-white tracking-wider">Gastronomia</h3>
+                            <p class="font-mono text-[10px] text-orange-400/60 tracking-wider mt-1">CRAVINGS: ATIVADOS</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">Parmegiana épica e hambúrguer artesanal — os pilares da gastronomia perfeita. Menção honrosa especial: o sonho de ir ao <span class="text-orange-400 font-semibold">Paguburger</span>! Um dia, amor, um dia... 🤤</p>
+                    <div class="flex items-center gap-2 pt-3 border-t border-white/5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-orange-400"></span>
+                        <span class="font-mono text-[10px] text-orange-400/70">Meta: Paguburger (EM BREVE)</span>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&h=200&fit=crop&crop=center" alt="Hambúrguer" class="w-full h-32 object-cover rounded-lg mt-4 opacity-70">
+                </div>
+                <!-- Card 6: Fiat Pulse (Estilo App de Carro) -->
+                <div class="glass-card rounded-2xl overflow-hidden reveal" style="transition-delay:0.5s">
+                    <!-- Car App Header -->
+                    <div class="bg-gradient-to-r from-neon-blue/10 to-transparent p-4 border-b border-neon-blue/10">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-neon-blue/10 border border-neon-blue/30 flex items-center justify-center">
+                                    <i data-lucide="car" class="w-5 h-5 text-neon-blue"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-tech text-sm font-semibold text-white tracking-wider">FIAT PULSE</h3>
+                                    <p class="font-mono text-[10px] text-neon-blue/60">AZUL • TURBO 200</p>
+                                </div>
+                            </div>
+                            <span class="w-2 h-2 rounded-full bg-neon-cyan animate-pulse"></span>
+                        </div>
+                    </div>
+                    <!-- Car Stats -->
+                    <div class="p-5">
+                        <div class="grid grid-cols-3 gap-3 mb-4">
+                            <div class="text-center p-3 rounded-lg bg-neon-blue/5 border border-neon-blue/10">
+                                <span class="font-tech text-lg text-neon-blue block">130</span>
+                                <span class="font-mono text-[9px] text-gray-500">CV</span>
+                            </div>
+                            <div class="text-center p-3 rounded-lg bg-neon-blue/5 border border-neon-blue/10">
+                                <span class="font-tech text-lg text-neon-blue block">1.0T</span>
+                                <span class="font-mono text-[9px] text-gray-500">TURBO</span>
+                            </div>
+                            <div class="text-center p-3 rounded-lg bg-neon-blue/5 border border-neon-blue/10">
+                                <span class="font-tech text-lg text-neon-blue block">CVT</span>
+                                <span class="font-mono text-[9px] text-gray-500">CÂMBIO</span>
+                            </div>
+                        </div>
+                        <!-- Fuel/Battery Bar -->
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="fuel" class="w-4 h-4 text-neon-blue/50"></i>
+                            <div class="flex-1 h-2 bg-neon-blue/10 rounded-full overflow-hidden">
+                                <div class="h-full w-3/4 bg-gradient-to-r from-neon-blue to-neon-cyan rounded-full"></div>
+                            </div>
+                            <span class="font-mono text-[10px] text-neon-blue/60">75%</span>
+                        </div>
+                        <p class="text-gray-500 text-xs mt-4 leading-relaxed">O carro que ele ama. Fiat Pulse Azul — estilo, potência e personalidade na estrada. Combina com o dono. 💙</p>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0afa?w=400&h=150&fit=crop&crop=center" alt="Carro" class="w-full h-28 object-cover opacity-50">
+                </div>
+                <!-- Card 7: Projetos Futuros — Dashboard Empreendedor -->
+                <div class="glass-card rounded-2xl p-6 md:col-span-2 lg:col-span-3 reveal" style="transition-delay:0.6s">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-neon-cyan/20 to-neon-blue/20 flex items-center justify-center border border-neon-cyan/20">
+                            <i data-lucide="rocket" class="w-6 h-6 text-neon-cyan"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-tech text-sm font-semibold text-white tracking-wider">Dashboard do Empreendedor</h3>
+                            <p class="font-mono text-[10px] text-neon-cyan/60 tracking-wider">PROJETOS FUTUROS • VISÃO 2025-2026</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <!-- Projeto 1: Tráfego Pago -->
+                        <div class="p-5 rounded-xl bg-gradient-to-br from-neon-blue/5 to-transparent border border-neon-blue/10">
+                            <div class="flex items-center gap-3 mb-3">
+                                <i data-lucide="trending-up" class="w-5 h-5 text-neon-blue"></i>
+                                <h4 class="font-tech text-xs text-white tracking-wider">Tráfego Pago</h4>
+                                <span class="ml-auto font-mono text-[9px] px-2 py-0.5 rounded-full bg-neon-blue/10 text-neon-blue border border-neon-blue/20">EM PROGRESSO</span>
+                            </div>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-3">Dominar a arte dos anúncios pagos — Facebook Ads, Google Ads, estratégias de conversão e escalar resultados para clientes.</p>
+                            <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+                                <div class="h-full w-2/5 bg-gradient-to-r from-neon-blue to-neon-cyan rounded-full transition-all duration-1000"></div>
+                            </div>
+                            <span class="font-mono text-[10px] text-neon-blue/50 mt-1 block">Progresso: 40%</span>
+                        </div>
+                        <!-- Projeto 2: App Personal Trainer -->
+                        <div class="p-5 rounded-xl bg-gradient-to-br from-neon-cyan/5 to-transparent border border-neon-cyan/10">
+                            <div class="flex items-center gap-3 mb-3">
+                                <i data-lucide="dumbbell" class="w-5 h-5 text-neon-cyan"></i>
+                                <h4 class="font-tech text-xs text-white tracking-wider">App Personal Trainer</h4>
+                                <span class="ml-auto font-mono text-[9px] px-2 py-0.5 rounded-full bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/20">PLANEJANDO</span>
+                            </div>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-3">Criar um aplicativo completo de treinos personalizados — montagem de fichas, acompanhamento e evolução dos alunos em tempo real.</p>
+                            <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+                                <div class="h-full w-1/5 bg-gradient-to-r from-neon-cyan to-neon-blue rounded-full transition-all duration-1000"></div>
+                            </div>
+                            <span class="font-mono text-[10px] text-neon-cyan/50 mt-1 block">Progresso: 20%</span>
+                        </div>
+                    </div>
+                    <p class="font-mono text-[10px] text-gray-600 mt-5 text-center">"Sonhos grandes exigem trabalho proporcional." — O Cara da Sofia 🚀</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ═══════════════════════════════════════════════════════
+         SEÇÃO 3: NOSSA TRILHA SONORA (VIBE MUSICAL)
+         ═══════════════════════════════════════════════════════ -->
+    <section id="soundtrack" class="relative py-20 md:py-32 px-4">
+        <div class="max-w-4xl mx-auto">
+            <!-- Section Header -->
+            <div class="text-center mb-16 reveal">
+                <div class="flex items-center justify-center gap-2 mb-3">
+                    <div class="h-px w-8 bg-neon-purple/30"></div>
+                    <span class="font-mono text-[10px] tracking-[0.4em] text-neon-purple/60 uppercase">Audio Stream</span>
+                    <div class="h-px w-8 bg-neon-purple/30"></div>
+                </div>
+                <h2 class="font-tech text-2xl md:text-4xl font-bold" style="color:#7c3aed; text-shadow: 0 0 20px rgba(124,58,237,0.5);">Nossa Trilha Sonora</h2>
+                <p class="font-mono text-xs text-gray-500 mt-3">&gt; Reproduzindo as batidas que marcaram nossa história...</p>
+            </div>
+            <!-- Music Player -->
+            <div class="glass-card rounded-3xl p-6 md:p-10 border-neon-purple/10 hover:border-neon-purple/30 reveal">
+                <!-- Player Header -->
+                <div class="flex items-center justify-between mb-8">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-neon-purple/10 border border-neon-purple/30 flex items-center justify-center">
+                            <i data-lucide="music" class="w-5 h-5 text-neon-purple"></i>
+                        </div>
+                        <div>
+                            <span class="font-tech text-xs text-white tracking-wider block">LOVEFY PLAYER</span>
+                            <span class="font-mono text-[10px] text-neon-purple/50">v1.0 • Premium</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-neon-pink"></span>
+                        <span class="w-2 h-2 rounded-full bg-neon-purple"></span>
+                        <span class="w-2 h-2 rounded-full bg-neon-blue"></span>
+                    </div>
+                </div>
+                <!-- Now Playing -->
+                <div class="flex flex-col md:flex-row items-center gap-6 md:gap-8 mb-8">
+                    <!-- Album Art -->
+                    <div class="w-48 h-48 md:w-56 md:h-56 rounded-2xl bg-gradient-to-br from-neon-purple/20 to-neon-blue/20 border border-neon-purple/20 flex items-center justify-center relative overflow-hidden flex-shrink-0">
+                        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=300&fit=crop" alt="Album Art" class="w-full h-full object-cover opacity-60 rounded-2xl">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black/30">
+                            <div class="w-16 h-16 rounded-full bg-neon-purple/20 border border-neon-purple/40 flex items-center justify-center backdrop-blur-sm cursor-pointer hover:bg-neon-purple/30 transition-colors">
+                                <i data-lucide="play" class="w-7 h-7 text-neon-purple ml-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Song Info + EQ -->
+                    <div class="flex-1 text-center md:text-left">
+                        <h3 class="font-tech text-lg md:text-xl text-white tracking-wider mb-1">Playlist do Casal</h3>
+                        <p class="text-gray-400 text-sm mb-6">Funk • Trap • Hits Marcantes</p>
+                        <!-- Equalizer Bars -->
+                        <div class="flex items-end justify-center md:justify-start gap-1.5 h-16 mb-6">
+                            <div class="eq-bar-item animate-eq-bar" style="--eq-height:45px; animation: eq-bar 0.6s ease-in-out infinite"></div>
+                            <div class="eq-bar-item animate-eq-bar" style="--eq-height:30px; animation: eq-bar 0.8s ease-in-out infinite 0.1s"></div>
+                            <div class="eq-bar-item animate-eq-bar" style="--eq-height:55px; animation: eq-bar 0.5s ease-in-out infinite 0.2s"></div>
+                            <div class="eq-bar-item animate-eq-bar" style="--eq-height:25px; animation: eq-bar 0.9s ease-in-out infinite 0.05s"></div>
+                            <div class="eq-bar-item animate-eq-bar" style="--eq-height:50px; animation: eq-bar 0.7s ease-in-out infinite 0.15s"></div>
+                            <div class="eq-bar-item animate-eq-bar" style="--eq-height:35px; animation: eq-bar 0.6s ease-in-out infinite 0.25s"></div>
+                            <div class="eq-bar-item animate-eq-bar" style="--eq-height:60px; animation: eq-bar 0.55s ease-in-out infinite 0.1s"></div>
+                            <div class="eq-bar-item animate-eq-bar" style="--eq-height:20px; animation: eq-bar 0.85s ease-in-out infinite 0.3s"></div>
+                            <div class="eq-bar-item animate-eq-bar" style="--eq-height:48px; animation: eq-bar 0.65s ease-in-out infinite 0.05s"></div>
+                            <div class="eq-bar-item animate-eq-bar" style="--eq-height:38px; animation: eq-bar 0.75s ease-in-out infinite 0.2s"></div>
+                            <div class="eq-bar-item animate-eq-bar" style="--eq-height:52px; animation: eq-bar 0.58s ease-in-out infinite 0.12s"></div>
+                            <div class="eq-bar-item animate-eq-bar" style="--eq-height:28px; animation: eq-bar 0.82s ease-in-out infinite 0.18s"></div>
+                            <div class="eq-bar-item animate-eq-bar" style="--eq-height:42px; animation: eq-bar 0.62s ease-in-out infinite 0.08s"></div>
+                            <div class="eq-bar-item animate-eq-bar" style="--eq-height:55px; animation: eq-bar 0.52s ease-in-out infinite 0.22s"></div>
+                            <div class="eq-bar-item animate-eq-bar" style="--eq-height:32px; animation: eq-bar 0.78s ease-in-out infinite 0.15s"></div>
+                            <div class="eq-bar-item animate-eq-bar hidden md:block" style="--eq-height:58px; animation: eq-bar 0.56s ease-in-out infinite 0.28s"></div>
+                            <div class="eq-bar-item animate-eq-bar hidden md:block" style="--eq-height:22px; animation: eq-bar 0.88s ease-in-out infinite 0.1s"></div>
+                            <div class="eq-bar-item animate-eq-bar hidden md:block" style="--eq-height:46px; animation: eq-bar 0.64s ease-in-out infinite 0.2s"></div>
+                            <div class="eq-bar-item animate-eq-bar hidden md:block" style="--eq-height:36px; animation: eq-bar 0.72s ease-in-out infinite 0.05s"></div>
+                            <div class="eq-bar-item animate-eq-bar hidden md:block" style="--eq-height:50px; animation: eq-bar 0.6s ease-in-out infinite 0.16s"></div>
+                        </div>
+                        <!-- Progress -->
+                        <div class="flex items-center gap-3">
+                            <span class="font-mono text-[10px] text-gray-500">1:23</span>
+                            <div class="flex-1 h-1 bg-gray-800 rounded-full overflow-hidden">
+                                <div class="progress-bar-fill"></div>
+                            </div>
+                            <span class="font-mono text-[10px] text-gray-500">3:45</span>
+                        </div>
+                        <!-- Controls -->
+                        <div class="flex items-center justify-center md:justify-start gap-6 mt-5">
+                            <button class="text-gray-500 hover:text-neon-purple transition-colors"><i data-lucide="skip-back" class="w-5 h-5"></i></button>
+                            <button class="w-12 h-12 rounded-full bg-neon-purple/10 border border-neon-purple/30 flex items-center justify-center hover:bg-neon-purple/20 transition-colors">
+                                <i data-lucide="play" class="w-5 h-5 text-neon-purple ml-0.5"></i>
+                            </button>
+                            <button class="text-gray-500 hover:text-neon-purple transition-colors"><i data-lucide="skip-forward" class="w-5 h-5"></i></button>
+                            <button class="text-gray-600 hover:text-neon-purple transition-colors"><i data-lucide="repeat" class="w-4 h-4"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Playlist -->
+                <!--
+                    ════════════════════════════════════════════
+                    CUSTOMIZE: Troque os nomes das músicas abaixo
+                    pelas músicas favoritas do casal!
+                    ════════════════════════════════════════════
+                -->
+                <div class="border-t border-white/5 pt-6">
+                    <h4 class="font-mono text-[10px] tracking-widest text-gray-500 uppercase mb-4">
+                        <i data-lucide="list-music" class="w-3 h-3 inline mr-1"></i> Playlist — 8 faixas
+                    </h4>
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-4 p-3 rounded-lg hover:bg-white/[0.03] transition-colors cursor-pointer group">
+                            <span class="font-mono text-xs text-gray-600 w-5">01</span>
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-300 group-hover:text-neon-purple transition-colors">Funk da Nossa Vibe</p>
+                                <p class="font-mono text-[10px] text-gray-600">Artista • 3:22</p>
+                            </div>
+                            <i data-lucide="play" class="w-4 h-4 text-gray-600 group-hover:text-neon-purple transition-colors"></i>
+                        </div>
+                        <div class="flex items-center gap-4 p-3 rounded-lg hover:bg-white/[0.03] transition-colors cursor-pointer group">
+                            <span class="font-mono text-xs text-gray-600 w-5">02</span>
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-300 group-hover:text-neon-purple transition-colors">Trap do Rolê</p>
+                                <p class="font-mono text-[10px] text-gray-600">Artista • 2:58</p>
+                            </div>
+                            <i data-lucide="play" class="w-4 h-4 text-gray-600 group-hover:text-neon-purple transition-colors"></i>
+                        </div>
+                        <div class="flex items-center gap-4 p-3 rounded-lg hover:bg-white/[0.03] transition-colors cursor-pointer group">
+                            <span class="font-mono text-xs text-gray-600 w-5">03</span>
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-300 group-hover:text-neon-purple transition-colors">Nosso Beat Favorito</p>
+                                <p class="font-mono text-[10px] text-gray-600">Artista • 4:10</p>
+                            </div>
+                            <i data-lucide="play" class="w-4 h-4 text-gray-600 group-hover:text-neon-purple transition-colors"></i>
+                        </div>
+                        <div class="flex items-center gap-4 p-3 rounded-lg hover:bg-white/[0.03] transition-colors cursor-pointer group">
+                            <span class="font-mono text-xs text-gray-600 w-5">04</span>
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-300 group-hover:text-neon-purple transition-colors">A Música do Primeiro Beijo</p>
+                                <p class="font-mono text-[10px] text-gray-600">Artista • 3:45</p>
+                            </div>
+                            <i data-lucide="play" class="w-4 h-4 text-gray-600 group-hover:text-neon-purple transition-colors"></i>
+                        </div>
+                        <div class="flex items-center gap-4 p-3 rounded-lg hover:bg-white/[0.03] transition-colors cursor-pointer group">
+                            <span class="font-mono text-xs text-gray-600 w-5">05</span>
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-300 group-hover:text-neon-purple transition-colors">Grave na Caixa do Pulse</p>
+                                <p class="font-mono text-[10px] text-gray-600">Artista • 3:01</p>
+                            </div>
+                            <i data-lucide="play" class="w-4 h-4 text-gray-600 group-hover:text-neon-purple transition-colors"></i>
+                        </div>
+                        <div class="flex items-center gap-4 p-3 rounded-lg hover:bg-white/[0.03] transition-colors cursor-pointer group">
+                            <span class="font-mono text-xs text-gray-600 w-5">06</span>
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-300 group-hover:text-neon-purple transition-colors">Melodia da Madrugada</p>
+                                <p class="font-mono text-[10px] text-gray-600">Artista • 2:44</p>
+                            </div>
+                            <i data-lucide="play" class="w-4 h-4 text-gray-600 group-hover:text-neon-purple transition-colors"></i>
+                        </div>
+                        <div class="flex items-center gap-4 p-3 rounded-lg hover:bg-white/[0.03] transition-colors cursor-pointer group">
+                            <span class="font-mono text-xs text-gray-600 w-5">07</span>
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-300 group-hover:text-neon-purple transition-colors">Hit do Verão Juntos</p>
+                                <p class="font-mono text-[10px] text-gray-600">Artista • 3:33</p>
+                            </div>
+                            <i data-lucide="play" class="w-4 h-4 text-gray-600 group-hover:text-neon-purple transition-colors"></i>
+                        </div>
+                        <div class="flex items-center gap-4 p-3 rounded-lg hover:bg-white/[0.03] transition-colors cursor-pointer group">
+                            <span class="font-mono text-xs text-gray-600 w-5">08</span>
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-300 group-hover:text-neon-purple transition-colors">Nossa Música (Para Sempre)</p>
+                                <p class="font-mono text-[10px] text-gray-600">Artista • 4:20</p>
+                            </div>
+                            <i data-lucide="play" class="w-4 h-4 text-gray-600 group-hover:text-neon-purple transition-colors"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ═══════════════════════════════════════════════════════
+         SEÇÃO 4: GALERIA DE MEMÓRIAS CÓSMICAS
+         ═══════════════════════════════════════════════════════ -->
+    <section id="gallery" class="relative py-20 md:py-32 px-4">
+        <div class="max-w-7xl mx-auto">
+            <!-- Section Header -->
+            <div class="text-center mb-16 reveal">
+                <div class="flex items-center justify-center gap-2 mb-3">
+                    <div class="h-px w-8 bg-neon-cyan/30"></div>
+                    <span class="font-mono text-[10px] tracking-[0.4em] text-neon-cyan/60 uppercase">Memory Archive</span>
+                    <div class="h-px w-8 bg-neon-cyan/30"></div>
+                </div>
+                <h2 class="font-tech text-2xl md:text-4xl font-bold" style="color:#06d6a0; text-shadow: 0 0 20px rgba(6,214,160,0.4);">Galeria de Memórias</h2>
+                <p class="font-mono text-xs text-gray-500 mt-3">&gt; 25 registros capturados e armazenados com sucesso</p>
+            </div>
+            <!--
+                ════════════════════════════════════════════════════════════
+                INSTRUÇÕES PARA AS FOTOS:
+                Substitua as URLs das imagens abaixo pelas suas próprias fotos.
+                Cada item é numerado de FOTO_01 a FOTO_25.
+                Troque o src="..." pela URL da sua foto.
+                Troque a legenda "Relatório IA: ..." pelo texto desejado.
+                ════════════════════════════════════════════════════════════
+            -->
+            <!-- Photo Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4">
+                <!-- FOTO_01 -->
+                <div class="photo-item rounded-xl aspect-square relative glass-card border-neon-cyan/10 hover:border-neon-cyan/40 reveal" onclick="openLightbox(0)">
+                    <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=400&h=400&fit=crop" alt="Memória 01" class="w-full h-full object-cover rounded-xl">
+                    <div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-xl flex items-end p-3 opacity-0 transition-opacity">
+                        <div>
+                            <span class="font-mono text-[9px] text-neon-cyan/60 block">MEM_001</span>
+                            <p class="text-white text-xs leading-snug">Relatório IA: Primeira captura — conexão emocional detectada.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- FOTO_02 -->
+                <div class="photo-item rounded-xl aspect-square relative glass-card border-neon-cyan/10 hover:border-neon-cyan/40 reveal" onclick="openLightbox(1)" style="transition-delay:0.05s">
+                    <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=400&h=400&fit=crop" alt="Memória 02" class="w-full h-full object-cover rounded-xl">
+                    <div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-xl flex items-end p-3 opacity-0 transition-opacity">
+                        <div>
+                            <span class="font-mono text-[9px] text-neon-cyan/60 block">MEM_002</span>
+                            <p class="text-white text-xs leading-snug">Relatório IA: Registro de sorriso — índice de felicidade: 99.8%.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- FOTO_03 -->
+                <div class="photo-item rounded-xl aspect-square relative glass-card border-neon-cyan/10 hover:border-neon-cyan/40 reveal" onclick="openLightbox(2)" style="transition-delay:0.1s">
+                    <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&h=400&fit=crop" alt="Memória 03" class="w-full h-full object-cover rounded-xl">
+                    <div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-xl flex items-end p-3 opacity-0 transition-opacity">
+                        <div>
+                            <span class="font-mono text-[9px] text-neon-cyan/60 block">MEM_003</span>
+                            <p class="text-white text-xs leading-snug">Relatório IA: Momento de cumplicidade — vínculo fortalecido.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- FOTO_04 -->
+                <div class="photo-item rounded-xl aspect-square relative glass-card border-neon-cyan/10 hover:border-neon-cyan/40 reveal" onclick="openLightbox(3)" style="transition-delay:0.15s">
+                    <img src="https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=400&h=400&fit=crop" alt="Memória 04" class="w-full h-full object-cover rounded-xl">
+                    <div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-xl flex items-end p-3 opacity-0 transition-opacity">
+                        <div>
+                            <span class="font-mono text-[9px] text-neon-cyan/60 block">MEM_004</span>
+                            <p class="text-white text-xs leading-snug">Relatório IA: Aventura compartilhada — adrenalina e amor.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- FOTO_05 -->
+                <div class="photo-item rounded-xl aspect-square relative glass-card border-neon-cyan/10 hover:border-neon-cyan/40 reveal" onclick="openLightbox(4)" style="transition-delay:0.2s">
+                    <img src="https://images.unsplash.com/photo-1545232979-8bf68ee9b1af?w=400&h=400&fit=crop" alt="Memória 05" class="w-full h-full object-cover rounded-xl">
+                    <div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-xl flex items-end p-3 opacity-0 transition-opacity">
+                        <div>
+                            <span class="font-mono text-[9px] text-neon-cyan/60 block">MEM_005</span>
+                            <p class="text-white text-xs leading-snug">Relatório IA: Olhar capturado — nível de carinho: imensurável.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- FOTO_06 a FOTO_25: Mesma estrutura, URLs placeholder diferentes -->
+                <div class="photo-item rounded-xl aspect-square relative glass-card border-neon-cyan/10 hover:border-neon-cyan/40 reveal" onclick="openLightbox(5)"><img src="https://images.unsplash.com/photo-1511988617509-a57c8a288659?w=400&h=400&fit=crop" alt="Memória 06" class="w-full h-full object-cover rounded-xl"><div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-xl flex items-end p-3 opacity-0 transition-opacity"><div><span class="font-mono text-[9px] text-neon-cyan/60 block">MEM_006</span><p class="text-white text-xs leading-snug">Relatório IA: Riso espontâneo — endorfinas em alta.</p></div></div></div>
+                <div class="photo-item rounded-xl aspect-square relative glass-card border-neon-cyan/10 hover:border-neon-cyan/40 reveal" onclick="openLightbox(6)"><img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=400&h=400&fit=crop" alt="Memória 07" class="w-full h-full object-cover rounded-xl"><div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-xl flex items-end p-3 opacity-0 transition-opacity"><div><span class="font-mono text-[9px] text-neon-cyan/60 block">MEM_007</span><p class="text-white text-xs leading-snug">Relatório IA: Paisagem emocional — cenário perfeito documentado.</p></div></div></div>
+                <div class="photo-item rounded-xl aspect-square relative glass-card border-neon-cyan/10 hover:border-neon-cyan/40 reveal" onclick="openLightbox(7)"><img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=400&h=400&fit=crop" alt="Memória 08" class="w-full h-full object-cover rounded-xl"><div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-xl flex items-end p-3 opacity-0 transition-opacity"><div><span class="font-mono text-[9px] text-neon-cyan/60 block">MEM_008</span><p class="text-white text-xs leading-snug">Relatório IA: Celebração conjunta — marcos de felicidade.</p></div></div></div>
+                <div class="photo-item rounded-xl aspect-square relative glass-card border-neon-cyan/10 hover:border-neon-cyan/40 reveal" onclick="openLightbox(8)"><img src="https://images.unsplash.com/photo-1543946207-39bd91e70ca7?w=400&h=400&fit=crop" alt="Memória 09" class="w-full h-full object-cover rounded-xl"><div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-xl flex items-end p-3 opacity-0 transition-opacity"><div><span class="font-mono text-[9px] text-neon-cyan/60 block">MEM_009</span><p class="text-white text-xs leading-snug">Relatório IA: Silêncio confortável — segurança emocional máxima.</p></div></div></div>
+                <div class="photo-item rounded-xl aspect-square relative glass-card border-neon-cyan/10 hover:border-neon-cyan/40 reveal" onclick="openLightbox(9)"><img src="https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?w=400&h=400&fit=crop" alt="Memória 10" class="w-full h-full object-cover rounded-xl"><div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-xl flex items-end p-3 opacity-0 transition-opacity"><div><span class="font-mono text-[9px] text-neon-cyan/60 block">MEM_010</span><p class="text-white text-xs leading-snug">Relatório IA: Viagem registrada — memória permanente salva.</p></div></div></div>
+                <div class="photo-item rounded-xl aspect-square relative glass-card border-neon-cyan/10 hover:border-neon-cyan/40 reveal" onclick="openLightbox(10)"><img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400&h=400&fit=crop" alt="Memória 11" class="w-full h-full object-cover rounded-xl"><div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-xl flex items-end p-3 opacity-0 transition-opacity"><div><span class="font-mono text-[9px] text-neon-cyan/60 block">MEM_011</span><p class="text-white text-xs leading-snug">Relatório IA: Contato visual profundo — algoritmo do amor ativado.</p></div></div></div>
+                <div class="photo-item rounded-xl aspect-square relative glass-card border-neon-cyan/10 hover:border-neon-cyan/40 reveal" onclick="openLightbox(11)"><img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?w=400&h=400&fit=crop" alt="Memória 12" class="w-full h-full object-cover rounded-xl"><div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-xl flex items-end p-3 opacity-0 transition-opacity"><div><span class="font-mono text-[9px] text-neon-cyan/60 block">MEM_012</span><p class="text-white text-xs leading-snug">Relatório IA: Noite estrelada — romantismo em pico.</p></div></div></div>
+                <div class="photo-item rounded-xl aspect-square relative glass-card border-neon-cyan/10 hover:border-neon-cyan/40 reveal" onclick="openLightbox(12)"><img src="https://images.unsplash.com/photo-1504196606672-aef5c9cefc92?w=400&h=400&fit=crop" alt="Memória 13" class="w-full h-full object-cover rounded-xl"><div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-xl flex items-end p-3 opacity-0 transition-opacity"><div><span class="font-mono text-[9px] text-neon-cyan/60 block">MEM_013</span><p class="text-white text-xs leading-snug">Relatório IA: Dança espontânea — sincronia corporal perfeita.</p></div></div></div>
+                <div class="photo-item rounded-xl aspect-square relative glass-card border-neon-cyan/10 hover:border-neon-cyan/40 reveal" onclick="openLightbox(13)"><img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=400&h=400&fit=crop" alt="Memória 14" class="w-full h-full object-cover rounded-xl"><div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-xl flex items-end p-3 opacity-0 transition-opacity"><div><span class="font-mono text-[9px] text-neon-cyan/60 block">MEM_014</span><p class="text-white text-xs leading-snug">Relatório IA: Surpresa planejada — reação: pura alegria.</p></div></div></div>
+                <div class="photo-item rounded-xl aspect-square relative glass-card border-neon-cyan/10 hover:border-neon-cyan/40 reveal" onclick="openLightbox(14)"><img src="https://images.unsplash.com/photo-1506869640319-fe1a24fd76cb?w=400&h=400&fit=crop" alt="Memória 15" class="w-full h-full object-cover rounded-xl"><div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-xl flex items-end p-3 opacity-0 transition-opacity"><div><span class="font-mono text-[9px] text-neon-cyan/60 block">MEM_015</span><p class="text-white text-xs leading-snug">Relatório IA: Pôr do sol testemunhado — beleza compartilhada.</p></div></div></div>
+                <div class="photo-item rounded-xl aspect-square relative glass-card border-neon-cyan/10 hover:border-neon-cyan/40 reveal" onclick="openLightbox(15)"><img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=400&h=400&fit=crop&crop=faces" alt="Memória 16" class="w-full h-full object-cover rounded-xl"><div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-xl flex items-end p-3 opacity-0 transition-opacity"><div><span class="font-mono text-[9px] text-neon-cyan/60 block">MEM_016</span><p class="text-white text-xs leading-snug">Relatório IA: Abraço longo — oxitocina em níveis máximos.</p></div></div></div>
+                <div class="photo-item rounded-xl aspect-square relative glass-card border-neon-cyan/10 hover:border-neon-cyan/40 reveal" onclick="openLightbox(16)"><img src="https://images.unsplash.com/photo-1482575832494-771f74bf6857?w=400&h=400&fit=crop" alt="Memória 17" class="w-full h-full object-cover rounded-xl"><div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-xl flex items-end p-3 opacity-0 transition-opacity"><div><span class="font-mono text-[9px] text-neon-cyan/60 block">MEM_017</span><p class="text-white text-xs leading-snug">Relatório IA: Aventura gastronômica — prazer compartilhado.</p></div></div></div>
+                <div class="photo-item rounded-xl aspect-square relative glass-card border-neon-cyan/10 hover:border-neon-cyan/40 reveal" onclick="openLightbox(17)"><img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=400&h=400&fit=crop" alt="Memória 18" class="w-full h-full object-cover rounded-xl"><div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-xl flex items-end p-3 opacity-0 transition-opacity"><div><span class="font-mono text-[9px] text-neon-cyan/60 block">MEM_018</span><p class="text-white text-xs leading-snug">Relatório IA: Festa juntos — energia contagiante.</p></div></div></div>
+                <div class="photo-item rounded-xl aspect-square relative glass-card border-neon-cyan/10 hover:border-neon-cyan/40 reveal" onclick="openLightbox(18)"><img src="https://images.unsplash.com/photo-1522098635833-216c5d90ae78?w=400&h=400&fit=crop" alt="Memória 19" class="w-full h-full object-cover rounded-xl"><div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-xl flex items-end p-3 opacity-0 transition-opacity"><div><span class="font-mono text-[9px] text-neon-cyan/60 block">MEM_019</span><p class="text-white text-xs leading-snug">Relatório IA: Caminhada noturna — conversas infinitas.</p></div></div></div>
+                <div class="photo-item rounded-xl aspect-square relative glass-card border-neon-cyan/10 hover:border-neon-cyan/40 reveal" onclick="openLightbox(19)"><img src="https://images.unsplash.com/photo-1523983388277-336a66bf9bcd?w=400&h=400&fit=crop" alt="Memória 20" class="w-full h-full object-cover rounded-xl"><div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-xl flex items-end p-3 opacity-0 transition-opacity"><div><span class="font-mono text-[9px] text-neon-cyan/60 block">MEM_020</span><p class="text-white text-xs leading-snug">Relatório IA: Selfie perfeita — simetria emocional capturada.</p></div></div></div>
+                <div class="photo-item rounded-xl aspect-square relative glass-card border-neon-cyan/10 hover:border-neon-cyan/40 reveal" onclick="openLightbox(20)"><img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&h=400&fit=crop&crop=faces" alt="Memória 21" class="w-full h-full object-cover rounded-xl"><div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-xl flex items-end p-3 opacity-0 transition-opacity"><div><span class="font-mono text-[9px] text-neon-cyan/60 block">MEM_021</span><p class="text-white text-xs leading-snug">Relatório IA: Abraço de reencontro — saudade recalculada para zero.</p></div></div></div>
+                <div class="photo-item rounded-xl aspect-square relative glass-card border-neon-cyan/10 hover:border-neon-cyan/40 reveal" onclick="openLightbox(21)"><img src="https://images.unsplash.com/photo-1444210971048-6130cf0c46cf?w=400&h=400&fit=crop" alt="Memória 22" class="w-full h-full object-cover rounded-xl"><div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-xl flex items-end p-3 opacity-0 transition-opacity"><div><span class="font-mono text-[9px] text-neon-cyan/60 block">MEM_022</span><p class="text-white text-xs leading-snug">Relatório IA: Nascer do sol juntos — novo dia, mesmo amor.</p></div></div></div>
+                <div class="photo-item rounded-xl aspect-square relative glass-card border-neon-cyan/10 hover:border-neon-cyan/40 reveal" onclick="openLightbox(22)"><img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=400&h=400&fit=crop" alt="Memória 23" class="w-full h-full object-cover rounded-xl"><div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-xl flex items-end p-3 opacity-0 transition-opacity"><div><span class="font-mono text-[9px] text-neon-cyan/60 block">MEM_023</span><p class="text-white text-xs leading-snug">Relatório IA: Olhar cúmplice — comunicação não-verbal: 100%.</p></div></div></div>
+                <div class="photo-item rounded-xl aspect-square relative glass-card border-neon-cyan/10 hover:border-neon-cyan/40 reveal" onclick="openLightbox(23)"><img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?w=400&h=400&fit=crop&crop=faces" alt="Memória 24" class="w-full h-full object-cover rounded-xl"><div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-xl flex items-end p-3 opacity-0 transition-opacity"><div><span class="font-mono text-[9px] text-neon-cyan/60 block">MEM_024</span><p class="text-white text-xs leading-snug">Relatório IA: Gargalhada conjunta — dopamina sincronizada.</p></div></div></div>
+                <div class="photo-item rounded-xl aspect-square relative glass-card border-neon-cyan/10 hover:border-neon-cyan/40 reveal" onclick="openLightbox(24)"><img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=400&h=400&fit=crop&crop=top" alt="Memória 25" class="w-full h-full object-cover rounded-xl"><div class="photo-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-xl flex items-end p-3 opacity-0 transition-opacity"><div><span class="font-mono text-[9px] text-neon-cyan/60 block">MEM_025</span><p class="text-white text-xs leading-snug">Relatório IA: Foto final do acervo — mas a história continua ∞</p></div></div></div>
+            </div>
+        </div>
+    </section>
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox fixed inset-0 z-[70] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4" onclick="closeLightbox(event)">
+        <button onclick="closeLightbox(event)" class="absolute top-4 right-4 md:top-8 md:right-8 text-gray-400 hover:text-white transition-colors z-10">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <button onclick="prevPhoto(event)" class="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 text-gray-400 hover:text-neon-cyan transition-colors z-10 p-2">
+            <i data-lucide="chevron-left" class="w-8 h-8"></i>
+        </button>
+        <button onclick="nextPhoto(event)" class="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 text-gray-400 hover:text-neon-cyan transition-colors z-10 p-2">
+            <i data-lucide="chevron-right" class="w-8 h-8"></i>
+        </button>
+        <div class="lightbox-content max-w-4xl w-full">
+            <img id="lightbox-img" src="" alt="Foto ampliada" class="w-full max-h-[80vh] object-contain rounded-2xl">
+            <div class="text-center mt-4">
+                <span id="lightbox-caption" class="font-mono text-xs text-neon-cyan/60"></span>
+                <span id="lightbox-counter" class="font-mono text-[10px] text-gray-600 block mt-1"></span>
+            </div>
+        </div>
+    </div>
+    <!-- ═══════════════════════════════════════════════════════
+         SEÇÃO 5: O GRANDE MANIFESTO (TEXTO DE AMOR)
+         ═══════════════════════════════════════════════════════ -->
+    <section id="manifesto" class="relative py-20 md:py-32 px-4">
+        <div class="max-w-3xl mx-auto">
+            <!-- Section Header -->
+            <div class="text-center mb-16 reveal">
+                <div class="flex items-center justify-center gap-2 mb-3">
+                    <div class="h-px w-8 bg-neon-pink/30"></div>
+                    <span class="font-mono text-[10px] tracking-[0.4em] text-neon-pink/60 uppercase">Transmissão Emocional</span>
+                    <div class="h-px w-8 bg-neon-pink/30"></div>
+                </div>
+                <h2 class="font-tech text-2xl md:text-4xl font-bold" style="color:#ff006e; text-shadow: 0 0 20px rgba(255,0,110,0.4);">O Grande Manifesto</h2>
+                <p class="font-mono text-xs text-gray-500 mt-3">&gt; Iniciando transmissão do coração... canal aberto, sem criptografia.</p>
+            </div>
+            <!-- Manifesto Content -->
+            <div class="glass-card rounded-3xl p-8 md:p-14 border-neon-pink/10 hover:border-neon-pink/20 reveal">
+                <!-- Decorative quote -->
+                <div class="text-center mb-10">
+                    <i data-lucide="quote" class="w-10 h-10 text-neon-pink/20 mx-auto"></i>
+                </div>
+                <!--
+                    ════════════════════════════════════════════════════════════
+                    ✍️ SEU TEXTO VAI AQUI!
+                    Substitua todo o conteúdo entre as tags <div class="manifesto-text">
+                    e o </div> correspondente pelo seu texto de amor.
+                    Cada parágrafo deve estar dentro de tags <p></p>.
+                    A primeira letra do primeiro parágrafo será estilizada automaticamente.
+                    ════════════════════════════════════════════════════════════
+                -->
+                <div class="manifesto-text text-gray-300">
+                    <p>Existe um momento exato em que tudo muda. Não é um momento grandioso, não é uma explosão de fogos ou uma cena de filme — é algo silencioso, algo que acontece quando você percebe que aquela pessoa ao seu lado não é apenas "alguém". É quando o olhar dela se torna o lugar mais seguro do mundo, quando o riso dela vira a trilha sonora dos seus melhores dias, quando a simples presença dela transforma qualquer lugar no lugar certo.</p>
+                    <p>Faz um ano. Um ano inteiro desde que o universo conspirou para colocar a gente no mesmo caminho. Trezentos e sessenta e cinco dias de descobertas, de risadas que fizeram o estômago doer, de brigas bobas que só serviram pra provar que nenhum de nós ia embora. Um ano de aprender que amar de verdade é uma escolha diária — e que, por você, eu escolheria de novo todos os dias, sem pensar duas vezes.</p>
+                    <p>Eu sei que não sou perfeito. Sei que tenho dias difíceis, que às vezes demoro pra entender, que erro mais do que gostaria. Mas também sei que, desde que você entrou na minha vida, eu me tornei uma versão melhor de mim mesmo. Não porque você me pediu pra mudar — mas porque você me mostrou que eu podia. E isso, meu amor, é o tipo de coisa que não se agradece com palavras. Se agradece com presença, com constância, com o compromisso de estar ali, firme, mesmo quando o mundo lá fora tá um caos.</p>
+                    <p>Lembro de tantos momentos nossos que parece que vivi mais nesse ano do que em todos os outros juntos. Lembro do jeito que você olha pra mim quando acha que eu não tô vendo — e é nesse olhar que eu encontro toda a certeza que preciso. Lembro das nossas conversas de madrugada, onde o tempo simplesmente parava de existir. Lembro das viagens de carro com o som alto, das vezes que a gente tentou cozinhar junto e virou uma bagunça, dos planos que a gente faz pro futuro como se ele já fosse nosso.</p>
+                    <p>E a verdade é que ele é nosso. O futuro é nosso. Porque eu não consigo mais imaginar nenhum cenário onde você não esteja. Você não é só parte do meu presente — você é a base do que eu quero construir. Cada meta, cada sonho, cada projeto, cada versão futura da minha vida tem você desenhada nela. Não por obrigação, mas por desejo. Porque o futuro só faz sentido se eu puder virar pro lado e te ver ali, sorrindo, do jeitinho que só você sabe sorrir.</p>
+                    <p>Então aqui vai o meu manifesto, meu amor. Não é uma promessa de perfeição — é uma promessa de presença. De estar ali nos dias lindos e nos dias difíceis. De lutar por nós quando for fácil e, principalmente, quando não for. De celebrar cada vitória sua como minha. De secar cada lágrima como se fosse a última. De te fazer rir até quando não houver motivo. De construir contigo algo tão forte que o tempo não consiga enfraquecer.</p>
+                    <p>Um ano é só o começo. Se depender de mim, essa história vai longe. Muito longe. Porque eu te amo de um jeito que não cabe em nenhum sistema, em nenhum algoritmo, em nenhuma inteligência artificial desse mundo. É humano demais, é real demais, é grande demais pra caber em qualquer explicação lógica. E é exatamente por isso que é tão bonito.</p>
+                    <p>Feliz 1 ano, meu amor. Que venham infinitos mais. 💙</p>
+                </div>
+                <!-- Decorative end -->
+                <div class="text-center mt-10">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neon-pink/5 border border-neon-pink/10">
+                        <span class="w-2 h-2 rounded-full bg-neon-pink animate-pulse"></span>
+                        <span class="font-mono text-[10px] text-neon-pink/50 tracking-wider">TRANSMISSÃO FINALIZADA — AMOR ENTREGUE COM SUCESSO</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ═══════════════════════════════════════════════════════
+         FOOTER
+         ═══════════════════════════════════════════════════════ -->
+    <footer class="relative py-16 px-4 border-t border-white/5">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="flex items-center justify-center gap-2 mb-4">
+                <div class="w-8 h-8 rounded-lg border border-neon-blue/20 flex items-center justify-center">
+                    <i data-lucide="heart" class="w-4 h-4 text-neon-blue"></i>
+                </div>
+            </div>
+            <p class="font-tech text-sm text-neon-blue/50 tracking-widest mb-2">SN_365</p>
+            <p class="font-mono text-[10px] text-gray-600">Feito com 💙 e muitas linhas de código</p>
+            <p class="font-mono text-[10px] text-gray-700 mt-1">© 2025-∞ • Todos os direitos reservados ao amor</p>
+            <div class="flex items-center justify-center gap-1 mt-4">
+                <span class="w-1 h-1 rounded-full bg-neon-blue/30"></span>
+                <span class="w-1 h-1 rounded-full bg-neon-purple/30"></span>
+                <span class="w-1 h-1 rounded-full bg-neon-cyan/30"></span>
+                <span class="w-1 h-1 rounded-full bg-neon-pink/30"></span>
+            </div>
+        </div>
+    </footer>
+    <!-- ═══════════════════════════════════════════════════════
+         JAVASCRIPT — Todos os efeitos e interatividade
+         ═══════════════════════════════════════════════════════ -->
+    <script>
+    // ═══ LUCIDE ICONS INIT ═══
+    lucide.createIcons();
+    // ═══════════════════════════════════════════
+    // CONFIGURAÇÃO: Data do início do namoro
+    // Altere a data abaixo para a data exata do início do namoro.
+    // Formato: Ano, Mês (0-11), Dia, Hora, Minuto
+    // ═══════════════════════════════════════════
+    const ANNIVERSARY_DATE = new Date(2025, 5, 2, 0, 0, 0); // 2 de Junho de 2025
+    // ═══════════════════════════════════════════
+    // LOADING SCREEN
+    // ═══════════════════════════════════════════
+    (function initLoading() {
+        const bar = document.getElementById('loading-bar');
+        const text = document.getElementById('loading-text');
+        const screen = document.getElementById('loading-screen');
+        const messages = [
+            'Carregando memórias...',
+            'Conectando corações...',
+            'Processando emoções...',
+            'Renderizando amor...',
+            'Compilando felicidade...',
+            'Sistema pronto ♥'
+        ];
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += Math.random() * 18 + 5;
+            if (progress > 100) progress = 100;
+            bar.style.width = progress + '%';
+            const msgIndex = Math.min(Math.floor(progress / 20), messages.length - 1);
+            text.textContent = messages[msgIndex];
+            if (progress >= 100) {
+                clearInterval(interval);
+                setTimeout(() => {
+                    screen.classList.add('hidden');
+                    startTypingEffect();
+                }, 500);
+            }
+        }, 200);
+    })();
+    // ═══════════════════════════════════════════
+    // PARTICLE SYSTEM
+    // ═══════════════════════════════════════════
+    (function initParticles() {
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let mouseX = -1000, mouseY = -1000;
+        const particles = [];
+        const PARTICLE_COUNT = 80;
+        const CONNECTION_DISTANCE = 120;
+        const MOUSE_RADIUS = 150;
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+        document.addEventListener('mouseleave', () => {
+            mouseX = -1000;
+            mouseY = -1000;
+        });
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.4;
+                this.vy = Math.random() * 0.3 + 0.1; // Falling gently
+                this.radius = Math.random() * 2 + 0.5;
+                this.alpha = Math.random() * 0.5 + 0.1;
+            }
+            update() {
+                // Mouse interaction
+                const dx = this.x - mouseX;
+                const dy = this.y - mouseY;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < MOUSE_RADIUS) {
+                    const force = (MOUSE_RADIUS - dist) / MOUSE_RADIUS;
+                    this.vx += (dx / dist) * force * 0.3;
+                    this.vy += (dy / dist) * force * 0.3;
+                }
+                this.x += this.vx;
+                this.y += this.vy;
+                // Damping
+                this.vx *= 0.99;
+                this.vy *= 0.995;
+                // Re-add fall speed
+                if (this.vy < 0.1) this.vy += 0.01;
+                // Bounds
+                if (this.x < 0) this.x = width;
+                if (this.x > width) this.x = 0;
+                if (this.y > height) { this.y = 0; this.x = Math.random() * width; }
+                if (this.y < 0) this.y = height;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0, 180, 255, ${this.alpha})`;
+                ctx.fill();
+            }
+        }
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+            particles.push(new Particle());
+        }
+        function drawConnections() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < CONNECTION_DISTANCE) {
+                        const alpha = (1 - dist / CONNECTION_DISTANCE) * 0.12;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(0, 180, 255, ${alpha})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            drawConnections();
+            requestAnimationFrame(animate);
+        }
+        animate();
+    })();
+    // ═══════════════════════════════════════════
+    // TYPING EFFECT
+    // ═══════════════════════════════════════════
+    function startTypingEffect() {
+        const el = document.getElementById('typing-text');
+        const phrases = [
+            '1 Ano de Nós.',
+            '365 Dias de Amor.',
+            'Conexão Eterna.',
+            'O Melhor Ano da Minha Vida.'
+        ];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let delay = 100;
+        function type() {
+            const current = phrases[phraseIndex];
+            if (isDeleting) {
+                el.textContent = current.substring(0, charIndex - 1);
+                charIndex--;
+                delay = 40;
+            } else {
+                el.textContent = current.substring(0, charIndex + 1);
+                charIndex++;
+                delay = 80 + Math.random() * 50;
+            }
+            if (!isDeleting && charIndex === current.length) {
+                delay = 2500; // Pause at end
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                delay = 400;
+            }
+            setTimeout(type, delay);
+        }
+        type();
+    }
+    // ═══════════════════════════════════════════
+    // COUNTDOWN TIMER
+    // ═══════════════════════════════════════════
+    function updateCountdown() {
+        const now = new Date();
+        const diff = now - ANNIVERSARY_DATE;
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        document.getElementById('countdown-days').textContent = String(days).padStart(3, '0');
+        document.getElementById('countdown-hours').textContent = String(hours).padStart(2, '0');
+        document.getElementById('countdown-minutes').textContent = String(minutes).padStart(2, '0');
+        document.getElementById('countdown-seconds').textContent = String(seconds).padStart(2, '0');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+    // ═══════════════════════════════════════════
+    // SCROLL REVEAL ANIMATIONS
+    // ═══════════════════════════════════════════
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    // ═══════════════════════════════════════════
+    // NAVBAR SCROLL EFFECT
+    // ═══════════════════════════════════════════
+    let lastScrollY = 0;
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        if (scrollY > 100) {
+            navbar.style.background = 'rgba(2, 6, 23, 0.85)';
+            navbar.style.backdropFilter = 'blur(20px)';
+            navbar.style.borderBottom = '1px solid rgba(0,180,255,0.08)';
+        } else {
+            navbar.style.background = 'transparent';
+            navbar.style.backdropFilter = 'none';
+            navbar.style.borderBottom = 'none';
+        }
+        lastScrollY = scrollY;
+    });
+    // Active nav link
+    const sections = document.querySelectorAll('section[id]');
+    window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY + 200;
+        sections.forEach(section => {
+            const top = section.offsetTop;
+            const height = section.offsetHeight;
+            const id = section.getAttribute('id');
+            const link = document.querySelector(`.nav-link[href="#${id}"]`);
+            if (link) {
+                if (scrollY >= top && scrollY < top + height) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            }
+        });
+    });
+    // ═══════════════════════════════════════════
+    // MOBILE MENU
+    // ═══════════════════════════════════════════
+    const mobileToggle = document.getElementById('mobile-toggle');
+    const mobileClose = document.getElementById('mobile-close');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileOverlay = document.getElementById('mobile-overlay');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+    function openMobileMenu() {
+        mobileMenu.classList.add('open');
+        mobileOverlay.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeMobileMenu() {
+        mobileMenu.classList.remove('open');
+        mobileOverlay.classList.add('hidden');
+        document.body.style.overflow = '';
+    }
+    mobileToggle.addEventListener('click', openMobileMenu);
+    mobileClose.addEventListener('click', closeMobileMenu);
+    mobileOverlay.addEventListener('click', closeMobileMenu);
+    mobileLinks.forEach(link => link.addEventListener('click', closeMobileMenu));
+    // ═══════════════════════════════════════════
+    // LIGHTBOX (GALERIA)
+    // ═══════════════════════════════════════════
+    const photoItems = document.querySelectorAll('.photo-item');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const lightboxCounter = document.getElementById('lightbox-counter');
+    let currentPhotoIndex = 0;
+    function getPhotoData() {
+        const items = [];
+        photoItems.forEach(item => {
+            const img = item.querySelector('img');
+            const caption = item.querySelector('.text-white.text-xs');
+            items.push({
+                src: img ? img.src.replace('w=400&h=400', 'w=1200&h=1200') : '',
+                caption: caption ? caption.textContent : ''
+            });
+        });
+        return items;
+    }
+    function openLightbox(index) {
+        const photos = getPhotoData();
+        currentPhotoIndex = index;
+        lightboxImg.src = photos[index].src;
+        lightboxCaption.textContent = photos[index].caption;
+        lightboxCounter.textContent = `${index + 1} / ${photos.length}`;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox(e) {
+        if (e) e.stopPropagation();
+        if (e && e.target !== lightbox && !e.target.closest('button')) return;
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    function nextPhoto(e) {
+        if (e) e.stopPropagation();
+        const photos = getPhotoData();
+        currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+        lightboxImg.src = photos[currentPhotoIndex].src;
+        lightboxCaption.textContent = photos[currentPhotoIndex].caption;
+        lightboxCounter.textContent = `${currentPhotoIndex + 1} / ${photos.length}`;
+    }
+    function prevPhoto(e) {
+        if (e) e.stopPropagation();
+        const photos = getPhotoData();
+        currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+        lightboxImg.src = photos[currentPhotoIndex].src;
+        lightboxCaption.textContent = photos[currentPhotoIndex].caption;
+        lightboxCounter.textContent = `${currentPhotoIndex + 1} / ${photos.length}`;
+    }
+    // Keyboard navigation for lightbox
+    document.addEventListener('keydown', (e) => {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') { lightbox.classList.remove('active'); document.body.style.overflow = ''; }
+        if (e.key === 'ArrowRight') nextPhoto();
+        if (e.key === 'ArrowLeft') prevPhoto();
+    });
+    // ═══════════════════════════════════════════
+    // GSAP SCROLL ANIMATIONS
+    // ═══════════════════════════════════════════
+    gsap.registerPlugin(ScrollTrigger);
+    // Parallax on hero elements
+    gsap.to('#hero', {
+        scrollTrigger: {
+            trigger: '#hero',
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 1
+        },
+        opacity: 0.3,
+        y: -80,
+        ease: 'none'
+    });
+    // Stagger cards animation
+    gsap.utils.toArray('.glass-card').forEach((card, i) => {
+        gsap.from(card, {
+            scrollTrigger: {
+                trigger: card,
+                start: 'top 85%',
+                toggleActions: 'play none none none'
+            },
+            opacity: 0,
+            y: 50,
+            duration: 0.8,
+            delay: i * 0.05,
+            ease: 'power2.out'
+        });
+    });
+    // Photo items stagger
+    gsap.utils.toArray('.photo-item').forEach((item, i) => {
+        gsap.from(item, {
+            scrollTrigger: {
+                trigger: item,
+                start: 'top 90%',
+                toggleActions: 'play none none none'
+            },
+            opacity: 0,
+            scale: 0.9,
+            duration: 0.5,
+            delay: (i % 5) * 0.08,
+            ease: 'power2.out'
+        });
+    });
+    // Section headers
+    gsap.utils.toArray('h2').forEach(h => {
+        gsap.from(h, {
+            scrollTrigger: {
+                trigger: h,
+                start: 'top 85%',
+                toggleActions: 'play none none none'
+            },
+            opacity: 0,
+            y: 30,
+            duration: 1,
+            ease: 'power3.out'
+        });
+    });
+    </script>
+</body>
+</html>
